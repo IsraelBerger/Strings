@@ -1,0 +1,771 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+
+namespace StringsTextProcessing
+{
+    class Program
+    {
+
+        static void Main(string[] args)
+       {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Reverse();
+            BracketCounter();
+            InsertSlash();
+            SubStringCounter();
+            ToUpperCase();
+            Asterisks();
+            GetUniCode();
+            CreateCipherCode();
+            GetSubString();
+            CrossOut();
+            FormatNumber();
+            ParseingURL();
+            ReverseSentence();
+            TownSorter();
+            Dictionary();
+            HtmlHyperLink();
+            DateDifference();
+            TimeAdder();
+            EmaiExtract();
+            DateExtract();
+            LetterCounter();
+            WordSorterCounter();
+            WordSorterByCommas();
+            GetEachLetterOnceMissOcurances();
+            HTMLextractor();
+        
+            Console.ReadKey();
+
+        }
+
+
+
+        public static void Reverse()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Hello please type in a word and the console will print it in reverse");
+            string InputStraight = Console.ReadLine();
+            StringBuilder Word = new StringBuilder();
+            for (int i = InputStraight.Length - 1; i >= 0; i--)
+            {
+                Word.Append(InputStraight[i]);
+            }
+            Console.WriteLine(Word.ToString());
+
+        }
+        public static void BracketCounter()
+        {
+            Console.WriteLine("enter your formula ");
+            Console.WriteLine("we will check it if it makes sense");
+            string entry = Console.ReadLine();
+            char[] counter = new char[entry.Length];
+            for (int i = 0; i < entry.Length; i++)
+            {
+                char F = entry[i];
+                counter[i] = F;
+            }
+            int a = 0;
+            int b = 0;
+            int c = 0;
+            bool x = true;
+            for (int i = 0; i < counter.Length; i++)
+            {
+                char prea = '(';  char preb = ')';              
+                if (counter[i] == (prea))
+                {
+                    a++;
+                    c++;
+                }
+                if (counter[i] == (preb))
+                {
+                    b++;
+                    c--;
+                }
+                if (c == -1)
+                {
+                    Console.WriteLine("something is wrong");
+                    x = false;
+                }
+            }
+
+            if (c == 0 && a == b && x == true)
+            {
+                Console.WriteLine("its a good formula");
+            }
+            else
+            {
+                Console.WriteLine("no good");
+            }
+            Console.ReadKey();
+        }
+        public static void InsertSlash()
+        {
+            StringBuilder Input = new StringBuilder();
+            StringBuilder Output = new StringBuilder();
+            Console.WriteLine("please enter a sentance and the program will put in backslashes in the spaces");
+            List<string> H = new List<string>();
+            Input.Append(Console.ReadLine());
+            char Slash = '\\';
+            string Space = " ";
+            int InputLegnth = Input.Length;
+            for (int i = 0; i < InputLegnth; i++)
+            {
+                string InputString = Input[i].ToString();
+                if (InputString == Space)
+                {
+                    Output.Append(Slash);
+                }
+                else
+                {
+                    Output.Append(Input[i]);
+                }
+
+            }
+            Console.WriteLine(Output.ToString());
+            Console.WriteLine("please enter a sentance seperated by backslashes and the program will put in the spaces");
+            StringBuilder Input2 = new StringBuilder();
+            StringBuilder Output2 = new StringBuilder();
+            Input2.Append(Console.ReadLine());
+            int InputLegnth2 = Input2.Length;
+            for (int i = 0; i < InputLegnth2; i++)
+            {
+                char charinout = Input2[i];
+                if (charinout.Equals(Slash))
+                {
+                    Output2.Append(Space);
+                }
+                if (charinout != Slash)
+                {
+                    Output2.Append(Input2[i]);
+                }
+
+            }
+            Console.WriteLine(Output2.ToString());
+        }
+        public static void SubStringCounter()
+        {
+            Console.ForegroundColor = ConsoleColor.Blue;
+
+            Console.WriteLine("please enter a paragraph and the program will count the substring for you");
+
+            string Input = (Console.ReadLine().ToLower());
+            Console.WriteLine("please enter the substring");
+            string InputSubString = Console.ReadLine().ToLower();
+            int index = Input.IndexOf(InputSubString);
+            int i = 0;
+            while (index != -1)
+            {
+                Console.WriteLine("{0} found at index: {1}", InputSubString, index);
+                index = Input.IndexOf(InputSubString, index + 1);
+                i++;
+            }
+            Console.WriteLine("total of {0} times {1} was found", i, InputSubString);
+            Console.WriteLine();
+
+        }
+        public static void ToUpperCase()
+        {
+            Console.WriteLine("please enter a paragraph and enclos words you want to convert to" +
+                "uppercase in\" <upcase>\" and \"</upcase>\" " +
+                "the program will change between tags to upper case for you");
+
+            string InputToString = Console.ReadLine();
+
+            int start = InputToString.IndexOf("<upcase>");
+            int endtag = InputToString.IndexOf("</upcase>");
+            int i = 0;
+            while (start != -1)
+            {
+                start = InputToString.IndexOf("<upcase>", start + 1);
+                i++;
+            }
+            while (i != 0)
+            {
+                int a = InputToString.IndexOf("<upcase>");
+                int b = a + 8;
+                int c = InputToString.IndexOf("</upcase>");
+                int d = c + 9;
+                int e = c - b;
+                string u = InputToString.Substring(b, e);
+                InputToString = InputToString.Remove(a, 8);
+                string j = u.ToUpper();
+                InputToString = InputToString.Replace(u, j);
+                int t = InputToString.IndexOf("</upcase>");
+                InputToString = InputToString.Remove(t, 9);
+                i--;
+            }
+            Console.WriteLine(InputToString);
+
+        }
+        public static void Asterisks()
+        {
+            Console.WriteLine("enter sentance");
+            string x = Console.ReadLine().Trim();
+            int a = x.Length;
+            char f = '*';
+            string m = x.PadRight(20, f);
+            Console.WriteLine(m);
+            if (a < 20)
+            {
+                int b = 20 - a;
+                string n_ew = "*";
+                for (int i = 0; i < b; i++)
+                {
+                    x += n_ew;
+                }
+            }
+            Console.WriteLine(x);
+        }
+        public static void GetUniCode()
+        {
+            Console.WriteLine("enter sentance and get the UniCode");
+            string m = Console.ReadLine();
+
+            string y = "\\U";
+            string z = "";
+            string n = "";
+            string xc = string.Empty;
+            ushort[] wer = new ushort[m.Length];
+            for (int i = 0; i < m.Length; i++)
+            {
+                char a = m[i];
+                wer[i] = (ushort)a;
+
+                z += "\\U" + wer[i].ToString();
+                n += "\\U" + wer[i].GetHashCode();
+                xc += String.Format(" unicode" + "\\u{0:x4}", wer[i]);
+                string xd = m[i].ToString();
+                Console.WriteLine("{0} unicode\\u{1}", xd, String.Format("{0:x4}", wer[i]));
+                
+            }
+            Console.WriteLine(xc);
+        }
+        //this function will create secret code encrypts a text by applying XOR between the given characters and some code
+        //and display the outcome
+        public static void CreateCipherCode()
+        {
+            Console.WriteLine("enter words to create a Chipher code for them");
+            string ReadMe = Console.ReadLine();
+            string xc = string.Empty;
+            Console.WriteLine("please enter the chipher code");
+            string Cipher = Console.ReadLine();
+            StringBuilder newcode = new StringBuilder();
+            for (int i = 0; i < ReadMe.Length; i++)
+            {
+                ushort a = (ushort)ReadMe[i];
+                ushort b = Cipher[i % Cipher.Length];
+                int output = a ^ b;
+                newcode.Append((char)output);
+                xc += string.Format(" unicode" + "\\u{0:x4}", output );
+            }
+            Console.WriteLine(xc);
+            Console.WriteLine("this is the cipher code"+newcode);
+        }
+        //extracts from a text all sentences that contain a particular word.
+        //sentences are separated from each other by the character "." 
+        //and the words are separated from one another by a character which is not a letter
+        public static void GetSubString()
+        {
+            Console.WriteLine("please enter a few sentance separated from each other by the character \".\" ");
+            Console.WriteLine("and the words are separated from one another by a character which is not a letter");
+            string[] Input = Console.ReadLine().Trim().Split('.'); 
+            Console.WriteLine("please put in the substrings and the console will print the sentances with those words");
+            string SubString = Console.ReadLine();
+            foreach (string item in Input)
+            {
+                // Console.WriteLine(item);
+                bool printed = true;
+                int SubIndex = item.IndexOf(SubString);
+                if (SubIndex==0 && item[SubIndex + SubString.Length].ToString() == " ")
+                        {
+                            Console.WriteLine(item );
+                    printed = false;                  
+                        }
+                if (SubIndex != -1 && item.Length - SubString.Length == SubIndex && item[SubIndex - 1].ToString() == " "&&printed)
+                {
+                    Console.WriteLine(item);
+                    printed = false;
+                }
+                int counter = 0;
+                while (SubIndex != -1&&printed)
+                {    
+                    int d = SubIndex + SubString.Length;
+                    if (SubIndex != 0 && d < item.Length)//
+
+                    { 
+                        if (item[SubIndex-1].ToString() == " " && item[SubIndex + SubString.Length].ToString()==" ")
+                        {
+                            Console.WriteLine(item );
+                            break;
+                        }
+                        
+                    }
+                    SubIndex = item.IndexOf(SubString, SubIndex + 1);
+                    counter++;
+                }
+            }
+        }
+        public static void CrossOut()
+        {
+            Console.WriteLine("please enter a sentence");
+            string input = Console.ReadLine();
+            Console.WriteLine("enter the letters or words you want to cross out");
+
+            char a = ' ';
+            string inputcode = Console.ReadLine();
+            string[] CrossOut = new string[inputcode.Length];
+            CrossOut = inputcode.Split(a);
+            string output = string.Empty;
+            for (int i = 0; i < CrossOut.Length; i++)
+            {
+                try
+                {
+                    string cross = CrossOut[i];
+                    char asterisks = '*';
+                    string h = string.Empty;
+                    string asterisksLong = h.PadRight(cross.Length, asterisks);
+                    output = Regex.Replace(input, cross, asterisksLong);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
+            Console.WriteLine(output);
+        }
+        public static void FormatNumber()
+        {
+            Console.WriteLine("enter a number");
+            string enter = Console.ReadLine();
+            try
+            {
+            int a = int.Parse(enter);
+            decimal b = decimal.Parse(enter);
+            Console.WriteLine(b.ToString("F2")+" "+ "F2");
+            Console.WriteLine(a.ToString("C") + " " + "C");
+            Console.WriteLine(b.ToString("F10")+ " " + "F10");
+            Console.WriteLine(b.ToString("P2")+ " " + "P2");
+            Console.WriteLine(a.ToString("D5")+ " " + "D5");
+            Console.WriteLine(a.ToString("X")+ " " + "X");
+            string formattedText = string.Format("{0:x2}", enter);
+            Console.WriteLine(formattedText);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+           
+
+        }
+        public static void ParseingURL()
+        {
+            Console.WriteLine("Enter a Url eg http://bbc.com/news");
+            string Url = Console.ReadLine();
+            //            Uri asUri = new Uri(Url);
+
+            //            string Result = asUri.AbsolutePath;
+
+            //Console.WriteLine(Result);
+
+
+            string Slash = '/'.ToString();
+            int start = Url.IndexOf(Slash);
+            int i = 0;
+            while (start != -1)
+            {
+                start = Url.IndexOf(Slash, start + 1);
+                i++;
+            }
+            string[] SplitUrl = new string[i];
+
+            SplitUrl = Url.Split('/');
+            string[] Parse = { "[protocol]= ", "[server]=", "[resource]=" };
+            string[] Seperaters = { "//", "/", " " };
+            string NewUrl = string.Empty;
+            int ArrayIndex = 0;
+            for (int SplitUrlIndex = 0; SplitUrlIndex < SplitUrl.Length; SplitUrlIndex++)
+            {
+                try
+                {
+                    if (SplitUrl[SplitUrlIndex] != "")
+                    {
+                        if (ArrayIndex < 3)
+                        {
+                            string aa = Parse[ArrayIndex];
+                            string bb = SplitUrl[SplitUrlIndex];
+                            string ss = Seperaters[ArrayIndex];
+                            NewUrl += aa + bb + ss;
+
+                        }
+                        else
+                        {
+                            string FullPath = SplitUrl[SplitUrlIndex];
+                            NewUrl += "/" + FullPath;
+                        }
+                        ArrayIndex++;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Data);
+                    Console.WriteLine(e.Message);
+                }
+
+
+            }
+
+            Console.WriteLine(NewUrl);
+        }
+        public static void ReverseSentence()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Hello please type in a sentence and the console will print it in reverse");
+            string InputStraight = Console.ReadLine();
+            StringBuilder Word = new StringBuilder();
+            for (int i = InputStraight.Length - 1; i >= 0; i--)
+            {
+                Word.Append(InputStraight[i]);
+            }
+            //Console.WriteLine(Word.ToString());
+            string[] reverse = new string[InputStraight.Length];
+            reverse = Word.ToString().Split(' ');
+            for (int i = 0; i < reverse.Length; i++)
+            {
+                reverse[i] += " ";
+            }
+            StringBuilder Sentence = new StringBuilder();
+            foreach (var item in reverse)
+            {
+
+                for (int i = item.Length - 1; i >= 0; i--)
+                {
+                    Sentence.Append(item[i]);
+                }
+            }
+            Sentence.Remove(0, 1);
+
+            Console.WriteLine(Sentence);
+        }
+        public static void TownSorter()
+        {
+            Console.WriteLine("put in a list of towns and we will sort it out an alphabetical order");
+            string _towns = Console.ReadLine();
+            string[] towns = _towns.Split(' ');
+            Array.Sort(towns);
+            //string fisrstTown = towns[0];
+            //string[] SortedTowns = towns;
+            //for (int i = 0; i < towns.Length; i++)
+            //{
+            //    string currenttown = towns[i];// Console.WriteLine(currenttown);
+            //    if (string.Compare(currenttown, fisrstTown) < 0)
+            //    {
+            //        fisrstTown = currenttown;
+            //    }
+            //}
+            //Console.WriteLine(fisrstTown + "  this is the first");
+            //bool swap;
+            //do
+            //{
+            //    swap = false;
+            //    for (int i = 0; i < SortedTowns.Length - 1; i++)
+            //    {
+            //        string temp;
+            //        if (SortedTowns[i].CompareTo(SortedTowns[i + 1]) > 0)
+            //        {
+            //            temp = SortedTowns[i];
+            //            SortedTowns[i] = SortedTowns[i + 1];
+            //            SortedTowns[i + 1] = temp;
+            //            swap = true;
+            //        }
+            //    }
+            //} while (swap == true);
+
+            // Console.WriteLine(fisrstTown);Sorted
+            foreach (var item in towns)
+            {
+                Console.Write(item + " ");
+            }
+
+
+        }
+        public static void Dictionary()
+        {
+            Dictionary<string, string> d = new Dictionary<string, string>();
+
+            d[".NET"] = "platform for applications from Microsoft";
+            d["CLR"] = " managed execution environment for .NET";
+            d["namespace"] = " hierarchical organization of classes";
+            Console.WriteLine("search for a word in the dictionary eg,.NET,CLR or namespace");
+            string x = Console.ReadLine();
+            string b;
+            if (d.TryGetValue(x, out b))
+            {
+                Console.WriteLine(x + d[x]);
+
+            }
+            else if (!d.TryGetValue(x, out b))
+            {
+                Console.WriteLine("no such word exits in this dictionary");
+            }
+
+        }
+        public static void HtmlHyperLink()
+        {
+            Console.WriteLine("please insert your html hyperlink eg<a href=https://bbc.com/news>brexit</a> for to be replaced with [URL=…]…[/URL].");
+            string html = Console.ReadLine();
+            html = Regex.Replace(html, @"(<a href)(.*?)(>)(.*?)(</a>)", @"[URL $2] $4 [/URL]");
+            Console.WriteLine(html);
+        }
+        public static void DateDifference()
+        {
+            try
+            {
+                Console.WriteLine("please enter the date put it in \"MM / dd / yyyy\"");
+                DateTime Time1 = DateTime.ParseExact(Console.ReadLine(), "MM/dd/yyyy", CultureInfo.InvariantCulture);
+                Console.WriteLine("please enter the  second date \"MM / dd / yyyy\"");
+                DateTime Time2 = DateTime.ParseExact(Console.ReadLine(), "MM/dd/yyyy", CultureInfo.InvariantCulture);
+                // int a = Time1.CompareTo(Time2); Console.WriteLine(a);
+                TimeSpan b = Time1 - Time2;
+                Console.WriteLine(b.Days.ToString("F"));
+
+            }
+            catch (Exception b)
+            {
+                Console.WriteLine(b.Message);
+            }
+        }
+        public static void TimeAdder()
+        {
+            TimeSpan f = new TimeSpan(6, 30, 0);
+            Console.WriteLine("please enter the date & time in this format \"MM / dd / yyyy / HH / mm / ss\"\n & the console will print it adding {0:c}", f);
+            DateTime x = DateTime.ParseExact(Console.ReadLine(), "MM/dd/yyyy/HH/mm/ss", CultureInfo.InvariantCulture);
+            //ateTime v = DateTime.ParseExact("00.00.0000.06.30.00","MM/dd/yyyy/hh/mm/ss", CultureInfo.InvariantCulture);
+            DateTime d = x.Add(f);
+            Console.WriteLine(x.ToString("F") + " was the time you entered");
+            Console.WriteLine(d.ToString("F") + " this is the time with added {0:c}", f);
+        }
+        public static void EmaiExtract()
+        {
+            Console.WriteLine("please put in text containing email addresses and the program will extract it");
+            string input = Console.ReadLine();
+            string Pattern = @"[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}";
+            foreach (Match m in Regex.Matches(input, Pattern, RegexOptions.IgnoreCase))
+            {
+                Console.WriteLine(m.Value);
+            }
+        }
+        public static void DateExtract()
+        {
+            Console.WriteLine("please put in text containing dates and the program will extract it \n"+
+                "\"MM / dd / yyyy\" or \"dd / MM / yyyy\"");
+            string input = Console.ReadLine();
+            string Pattern = @"([0-9]{2})([./])([0-9]{2})([./])([0-9]{4})";
+            foreach (Match m in Regex.Matches(input, Pattern, RegexOptions.IgnoreCase))
+            {
+                Console.WriteLine(m.Value);
+            }
+        }
+        public static void LetterCounter()
+        {
+            Console.WriteLine("enter a string \n letters are going to be to be counted");
+            StringBuilder input = new StringBuilder();
+            input.Append(Console.ReadLine().Trim());
+
+            int[] intArray = new int[65536];
+            for (int i = 0; i < input.Length; i++)
+            {
+                int xx = input[i];
+                intArray[xx] += 1;
+            }
+            for (int i = 0; i < intArray.Length; i++)
+            {
+                ushort cv = (ushort)i;
+                char cvb = (char)cv;
+                if (intArray[i] != 0)
+                {
+                    Console.WriteLine(cvb.ToString() + "  unicode=\\u{0:x4}", cv + " was found " + intArray[i] + " times");
+                }
+
+            }
+            Console.WriteLine("Congratulation");
+            int x = input.Length;
+            bool swap;
+            do
+            {
+                swap = false;
+                for (int i = 0; i < input.Length - 1; i++)
+                {
+                    char temp;
+                    if (input[i].CompareTo(input[i + 1]) > 0)
+                    {
+                        temp = input[i];
+                        input[i] = input[i + 1];
+                        input[i + 1] = temp;
+                        swap = true;
+                    }
+
+                }
+            } while (swap == true);
+
+            String Orederd = input.ToString().Trim();
+            int y = 1;
+            int z = Orederd.Length;
+            for (int i = 0; i < z - 1; i++)
+            {
+                if (i != z - 2)
+                {
+                    if (Orederd[i] == Orederd[i + 1])
+                    {
+                        y++;
+
+                    }
+                    else if (Orederd[i] != Orederd[i + 1])
+                    {
+                        Console.WriteLine("{0} was found in total  {1}", Orederd[i], y);
+                        y = 1;
+                    }
+                }
+                else if (i == z - 2)
+                {
+                    if (Orederd[i] == Orederd[i + 1])
+                    {
+                        y++;
+                        Console.WriteLine("{0} was found in total  {1}", Orederd[i], y);
+                    }
+                    else if (Orederd[i] != Orederd[i + 1])
+                    {
+                        Console.WriteLine("{0} was found in total  {1}", Orederd[i], y);
+                        Console.WriteLine("{0} was found in total  1 ", Orederd[i + 1]);
+                    }
+                }
+
+
+
+            }
+        }
+        public static void WordSorterCounter()
+        {
+            Console.WriteLine("enter a string in the console and it will print it in" +
+                "\nalphabetical order & how many times each one of them occurs");
+            string[] input = Console.ReadLine().Split(' ');
+            bool swap;
+            do
+            {
+                swap = false;
+                for (int i = 0; i < input.Length - 1; i++)
+                {
+                    string temp;
+                    if (input[i].CompareTo(input[i + 1]) > 0)
+                    {
+                        temp = input[i];
+                        input[i] = input[i + 1];
+                        input[i + 1] = temp;
+                        swap = true;
+                    }
+                }
+            } while (swap == true);
+            int y = 1;
+            for (int i = 0; i < input.Length - 1; i++)
+            {
+                if (i != input.Length - 2)
+                {
+                    if (input[i] == input[i + 1]) { y++; }
+                    else if (input[i] != input[i + 1])
+                    { Console.WriteLine("{0} ocurrs  {1}", input[i], y); y = 1; }
+                }
+                else if (i == input.Length - 2)
+                {
+                    if (input[i] == input[i + 1])
+                    { y++; Console.WriteLine("{0} ocurrs  {1}", input[i], y); }
+                    else if (input[i] != input[i + 1])
+                    {
+                        Console.WriteLine("{0} ocurrs  {1}", input[i], y);
+                        Console.WriteLine("{0} ocurrs  1 ", input[i + 1]);
+                    }
+                }
+            }
+
+        }
+        public static void GetEachLetterOnceMissOcurances()
+        {
+            Console.WriteLine("enter random text in the console and it will replace" +
+                "\n every sequence of identical letters in it with a single letter" +
+                "\n(the repeating letter). Example: \"aaaaabbbbbcdddeeeedssaa\" ? \"abcdedsa\"");
+            StringBuilder input = new StringBuilder();
+            StringBuilder input2 = new StringBuilder();
+
+            input.Append(Console.ReadLine()); input2.Append(input[0].ToString());
+            for (int i = 0; i < input.Length - 1; i++)
+            {
+                if (input[i] != input[i + 1])
+                {
+                    input2.Append(input[i + 1]);
+                }
+            }
+            Console.WriteLine(input2);
+        }
+        public static void WordSorterByCommas()
+        {
+            Console.WriteLine("write a list of words separated by commas in the console" +
+                "and it will print them in alphabetical order");
+      
+            string[] input2 = Console.ReadLine().Split(',');
+            string[] input = input2.ToArray();
+            DateTime start = DateTime.Now; 
+            Array.Sort(input2);
+            Console.WriteLine(string.Join(",", input2));
+            foreach (string item in input2)
+            {
+                Console.WriteLine(item);
+            }
+            DateTime end = DateTime.Now;
+            Console.WriteLine(end-start);
+            start= DateTime.Now;
+            bool swap;
+            do
+            {
+                swap = false;
+                for (int i = 0; i < input.Length - 1; i++)
+                {
+                    string temp;
+                    if (input[i].CompareTo(input[i + 1]) > 0)
+                    {
+                        temp = input[i];
+                        input[i] = input[i + 1];
+                        input[i + 1] = temp;
+                        swap = true;
+                    }
+                }
+            } while (swap == true);
+            foreach (string item in input)
+            {
+                Console.WriteLine(item);
+            }
+            end = DateTime.Now;
+            Console.WriteLine(end - start);
+        }
+        public static void HTMLextractor()
+        {
+            Console.WriteLine("put in an HTML document it will extracts all the text without html tags");
+            string html = Console.ReadLine();
+         string   html2 = Regex.Replace(html, @"(<)(.*?)(>)(.*?)(</)(.*?)(>)", @"$4 ");
+            Console.WriteLine(html2);
+            //this is another method
+            bool tag=false;StringBuilder html3 = new StringBuilder();
+            for (int i = 0; i < html.Length; i++)
+            {
+                char curentLetter = html[i];
+                if (curentLetter=='<')  { tag = false; }
+                if (tag) { html3.Append(curentLetter); }
+                if (curentLetter == '>') { html3.Append(' '); tag = true; }                
+            }
+            Console.WriteLine(html3);
+        }
+    }
+   
+}
